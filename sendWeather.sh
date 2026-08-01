@@ -32,8 +32,7 @@ jq -r '
    elif .wind.deg < 247.5 then "SW"
    elif .wind.deg < 292.5 then "W"
    else "NW" end) +
-  "  Visibility: " + ((.visibility / 1000) | tostring) + "km" + "\n" +
-  " (GMT+" + ((.timezone / 3600) | tostring) + ")"
+  "  Visibility: " + ((.visibility / 1000) | tostring) + "km" + "\n"
 '
 )
 #echo "$output"
