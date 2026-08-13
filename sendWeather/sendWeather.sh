@@ -1,19 +1,22 @@
-#/bin/bash
+#!/bin/bash
 
 # Check that both parameters are supplied
-if [ "$#" -ne 2 ]; then
-    echo "Error: Missing required parameters."
-    echo "Usage: $0 <user> <city>"
-    exit 1
-fi
+#if [ "$#" -ne 2 ]; then
+#    echo "Error: Missing required parameters."
+#    echo "Usage: $0 <user> <city>"
+#    exit 1
+#fi
 
-user="$1"
-city="$2"
+# expoect env variables
+# user
+# city
+# APPSERVER_URL
+# BOT_URL
 
 #echo "User: $user"
 #echo "City: $city"
 
-data=$(curl -s http://localhost:3002/weather?city=$city)
+data=$(curl -s "$APPSERVER_URL/weather?city=$city")
 #echo $data
 output=$(echo "$data" |
 jq -r '
@@ -39,5 +42,5 @@ jq -r '
 curl -G \
   --data-urlencode "msg=$output" \
   --data-urlencode "id=$user" \
-  "http://localhost:3001/bot/broadcast"
+  "$BOT_URL/bot/broadcast"
 
